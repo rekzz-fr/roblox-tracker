@@ -39,17 +39,18 @@
   </div>
 
   <script>
-    const universeId = "9468484990"; // universeId for this game
+    const universeId = "9468484990"; // universeId for Cart Ride Into Brainrots
 
     async function fetchPlayerCount() {
       try {
-        const res = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
+        // Use RoProxy instead of direct Roblox API
+        const res = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeId}`);
         const data = await res.json();
         const count = data.data[0].playing;
         document.getElementById("count").textContent = count.toLocaleString();
       } catch (err) {
         document.getElementById("count").textContent = "Error";
-        console.error(err);
+        console.error("Fetch failed:", err);
       }
     }
 
