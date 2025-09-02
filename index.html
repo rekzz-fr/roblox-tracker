@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart Ride Into Brainrots - Live Player Count</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #222;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    #count {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Live Players in<br>Cart Ride Into Brainrots</h1>
+    <div id="count">Loading...</div>
+  </div>
+
+  <script>
+    const universeId = "9468484990"; // universeId for this game
+
+    async function fetchPlayerCount() {
+      try {
+        const res = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
+        const data = await res.json();
+        const count = data.data[0].playing;
+        document.getElementById("count").textContent = count.toLocaleString();
+      } catch (err) {
+        document.getElementById("count").textContent = "Error";
+        console.error(err);
+      }
+    }
+
+    fetchPlayerCount();
+    setInterval(fetchPlayerCount, 30000); // refresh every 30 seconds
+  </script>
+</body>
+</html>
